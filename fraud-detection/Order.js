@@ -1,4 +1,4 @@
-class Order {
+module.exports = class Order {
     constructor(orderId, dealId, email, street, city, state, zipcode, creditCard)
     {
         this.#orderId = Number(orderId);
