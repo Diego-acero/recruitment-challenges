@@ -1,7 +1,7 @@
 const fs = require('fs');
 const Order = require('./Order');
 
-class FraudRadar {
+module.exports = class FraudRadarOop {
     #orders = [];
     #fraudResults = [];
 
@@ -11,29 +11,8 @@ class FraudRadar {
     check(filePath) 
     {
         this._setOrdersFromFile(filePath);
-
-        for (let i = 0; i < this.#orders.length; i++) {
-            let current = this.#orders[i]
-            let isFraudulent = false
-        
-            for (let j = i + 1; j < this.#orders.length; j++) {
-              isFraudulent = false
-              
-              if (this._isOrderPersonalDataFraudulent(current, this.#orders[j])) {
-                  isFraudulent = true
-                }
-              if (this._isOrderLocationDataFraudulent(current, this.#orders[j])) {
-                  isFraudulent = true
-                }
-              
-              if (isFraudulent) {
-                fraudResults.push({
-                  isFraudulent: true,
-                  orderId: orders[j].orderId
-                })
-              }
-            }
-          }
+        this._setFraudulentResults();
+        return this.#fraudResults;
     }
 
     _setOrdersFromFile(filePath) 
@@ -51,6 +30,24 @@ class FraudRadar {
                                         items[6],
                                         items[7])
                                         );
+        }
+    }
+
+    _setFraudulentResults() 
+    {
+      for (let i = 0; i < this.#orders.length; i++) 
+        {
+            let current = this.#orders[i]
+            for (let j = i + 1; j < this.#orders.length; j++) {
+              if (this._isOrderPersonalDataFraudulent(current, this.#orders[j]) ||
+                 this._isOrderLocationDataFraudulent(current, this.#orders[j])) 
+                {
+                  this.#fraudResults.push({
+                    isFraudulent: true,
+                    orderId: this.#orders[j].orderId
+                  });
+                }
+            }
         }
     }
 
