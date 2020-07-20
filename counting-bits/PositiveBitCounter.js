@@ -8,7 +8,7 @@ function Count (input) {
 }
 
 function reverseBinaryNumber(input) {
-  input.toString(2).split("").reverse();
+  return input.toString(2).split("").reverse();
 }
 
 function countBinaries(inverseBinaryNumber) {
@@ -21,6 +21,7 @@ function countBinaries(inverseBinaryNumber) {
       bitsCount.push(i);
     }
   }
+  return bitsCount;
 }
 
 module.exports = { Count }
