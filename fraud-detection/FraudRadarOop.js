@@ -8,6 +8,11 @@ module.exports = class FraudRadarOop {
     get orders() {return this.#orders}
     get fraudResults() {return this.#fraudResults}
 
+    /*
+    | NOT RECEIVING PATH:
+    | Instead of receiving the path i would have and adapter (implementing an interface) that receives the path and returns the List of Orders (using the order class)
+    | This way you could abstract from the FraudRadar where and how the orders come (you could have and adapter for files, JSON...) because they implement the interface.
+    */
     check(filePath) 
     {
         this._setOrdersFromFile(filePath);
